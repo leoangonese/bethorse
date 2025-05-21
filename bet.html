@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa de Apostas - Corrida de Cavalos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <style>
+        /* (mantive todo seu CSS original, apenas adicionei o botão novo) */
+        * {
+            list-style: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            background-color: rgb(0, 26, 0);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(0, 122, 0);
+            color: white;
+            padding: 10px;
+            border-bottom: 1px solid brown;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+
+        ul li a {
+            margin: 0 20px;
+            color: #000000;
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .race-track {
+            border-radius: 20px;
+            background-image: url("./assets/img/fundo/second.jpeg");
+            background-size: contain;
+            background-position: center;
+            position: relative;
+            width: 95%;
+            height: 300px;
+            margin: 20px auto;
+            border: 2px solid #333;
+        }
+
+        .horse {
+            transform: rotateY(180deg);
+            position: absolute;
+            bottom: 0;
+            width: 50px;
+            height: 100px;
+            border-radius: 50%;
+            transition: left 0.1s linear;
+        }
+
+        #horse2 {
+            padding-bottom: 10px;
+        }
+
+        #horse3 {
+            padding-bottom: 20px;
+        }
+
+        #horse4 {
+            padding-bottom: 30px;
+        }
+
+        #horse5 {
+            padding-bottom: 40px;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+            padding: 2px;
+            position: relative;
+            bottom: 0;
+            width: 99.6%;
+            border-radius: 100px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            background-color: white;
+        }
+
+        footer p {
+            font-size: 28px;
+            color: black;
+        }
+
+        .btn-logout {
+            background-color: red;
+            border: solid 1px black;
+            color: white;
+            border-radius: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .btn-add-funds {
+            background-color: blue;
+            border: solid 1px white;
+            border-radius: 10px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .primary-text {
+            font-size: 36px;
+            color: white;
+            margin: 15px 0;
+        }
+
+        .wallet {
+            font-size: 28px;
+            color: white;
+        }
+
+        #startButton {
+            background-color: rgb(0, 122, 0);
+            border: solid 1px white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+        #winner {
+            color: white;
+            font-size: 28px;
+            padding-top: 20px;
+        }
+
+        #betResult {
+            color: white;
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        .bet-form {
+            margin-top: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .bet-form input,
+        .bet-form select {
+            font-size: 20px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="audio" src="./assets/audio/run.mp3" type="audio/mpeg"></audio>
+
+    <header>
+        <img class="logo" src="./assets/img/logo.png" alt="">
+        <div>
+            <button class="btn-add-funds" onclick="addFunds()">Adicionar Saldo</button>
+            <button class="btn-logout" onclick="logout()">Sair do Usuário</button>
+        </div>
+    </header>
+
+    <h1 class="primary-text">Aposte com moderação (Demonstração)</h1>
+    <p class="wallet">Saldo: R$ 0,00</p>
+
+    <div class="race-track">
+        <div class="horse" id="horse1">
+            <img src="./assets/img/cavalos/1.svg" width="50px" height="50px" alt="Cavalo 1">
+        </div>
+        <div class="horse" id="horse2">
+            <img src="./assets/img/cavalos/2.svg" width="50px" height="50px" alt="Cavalo 2">
+        </div>
+        <div class="horse" id="horse3">
+            <img src="./assets/img/cavalos/3.svg" width="50px" height="50px" alt="Cavalo 3">
+        </div>
+        <div class="horse" id="horse4">
+            <img src="./assets/img/cavalos/4.svg" width="50px" height="50px" alt="Cavalo 4">
+        </div>
+        <div class="horse" id="horse5">
+            <img src="./assets/img/cavalos/5.svg" width="50px" height="50px" alt="Cavalo 5">
+        </div>
+    </div>
+
+    <div class="bet-form">
+        <label for="horseSelect">Escolha o cavalo:</label>
+        <select id="horseSelect">
+            <option value="1">Cavalo 1</option>
+            <option value="2">Cavalo 2</option>
+            <option value="3">Cavalo 3</option>
+            <option value="4">Cavalo 4</option>
+            <option value="5">Cavalo 5</option>
+        </select>
+
+        <label for="betAmount">Valor da aposta (R$):</label>
+        <input type="number" id="betAmount" min="1" step="0.01">
+    </div>
+
+    <div class="controls">
+        <button id="startButton">Apostar</button>
+        <p id="winner"></p>
+        <p id="betResult"></p>
+    </div>
+
+    <footer>
+        <p>©Bethorse - Todos os direitos reservados 2025</p>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            alert("Este site é apenas uma demonstração para fins educacionais e de entretenimento. " +
+                "Nenhuma aposta real está sendo feita aqui, não há dinheiro envolvido. " +
+                "Use com responsabilidade e saiba que não é uma aposta verdadeira.");
+        };
+
+        let horsePositions = [0, 0, 0, 0, 0];
+        let raceInterval;
+        let raceFinished = false;
+        let raceStarted = false;
+
+        let userBalance = parseFloat(localStorage.getItem('userBalance')) || 1000;
+        let userBetHorse = null;
+        let userBetAmount = 0;
+
+        function updateBalanceDisplay() {
+            document.querySelector('.wallet').textContent = `Saldo: R$ ${userBalance.toFixed(2)}`;
+            localStorage.setItem('userBalance', userBalance);
+        }
+
+        function startRace() {
+            if (raceStarted) return;
+
+            raceStarted = true;
+            raceFinished = false;
+            document.getElementById('winner').textContent = '';
+            document.getElementById('betResult').textContent = '';
+
+            raceInterval = setInterval(() => {
+                if (raceFinished) return;
+                playSound();
+
+                horsePositions = horsePositions.map(position => position + Math.random() * 2);
+                horsePositions.forEach((position, index) => {
+                    const horseElement = document.getElementById(`horse${index + 1}`);
+                    horseElement.style.left = `${position}%`;
+                });
+
+                if (horsePositions.some(position => position >= 93)) {
+                    raceFinished = true;
+                    raceStarted = false;
+                    const winnerIndex = horsePositions.findIndex(position => position >= 93);
+                    const winnerHorse = winnerIndex + 1;
+                    document.getElementById('winner').textContent = `O vencedor é o Cavalo ${winnerHorse}!`;
+                    clearInterval(raceInterval);
+                    stopSound();
+                    checkBetResult(winnerHorse);
+                }
+            }, 100);
+        }
+
+        function checkBetResult(winnerHorse) {
+            if (userBetHorse == winnerHorse) {
+                const prize = userBetAmount * 2;
+                userBalance += prize;
+                document.getElementById('betResult').textContent = `Parabéns! Você ganhou R$ ${prize.toFixed(2)}!`;
+            } else {
+                userBalance -= userBetAmount;
+                document.getElementById('betResult').textContent = `Que pena! Você perdeu R$ ${userBetAmount.toFixed(2)}.`;
+            }
+            updateBalanceDisplay();
+        }
+
+        function playSound() {
+            var audio = document.getElementById("audio");
+            audio.play();
+        }
+
+        function stopSound() {
+            var audio = document.getElementById("audio");
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        document.getElementById('startButton').addEventListener('click', () => {
+            const selectedHorse = parseInt(document.getElementById('horseSelect').value);
+            const betAmount = parseFloat(document.getElementById('betAmount').value);
+
+            if (isNaN(betAmount) || betAmount <= 0) {
+                alert('Por favor, insira um valor de aposta válido.');
+                return;
+            }
+            if (betAmount > userBalance) {
+                alert('Saldo insuficiente para essa aposta.');
+                return;
+            }
+
+            userBetHorse = selectedHorse;
+            userBetAmount = betAmount;
+
+            if (raceFinished || !raceStarted) {
+                horsePositions = [0, 0, 0, 0, 0];
+                document.querySelectorAll('.horse').forEach(horse => horse.style.left = '0%');
+            }
+
+            startRace();
+        });
+
+        function addFunds() {
+            let amount = prompt("Quanto deseja adicionar ao saldo?");
+            amount = parseFloat(amount);
+            if (!isNaN(amount) && amount > 0) {
+                userBalance += amount;
+                updateBalanceDisplay();
+                alert(`R$ ${amount.toFixed(2)} adicionados ao saldo!`);
+            } else {
+                alert("Valor inválido.");
+            }
+        }
+
+        function logout() {
+            if (confirm("Tem certeza que deseja sair?")) {
+                localStorage.removeItem('user');
+                localStorage.setItem('loggedIn', 'false');
+                window.location.href = 'index.html';
+            }
+        }
+
+        updateBalanceDisplay();
+    </script>
+</body>
+
+</html>

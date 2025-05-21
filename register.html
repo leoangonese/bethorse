@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Casa de Apostas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(0, 26, 0);
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        input,
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cadastro</h1>
+    <input type="text" id="username" placeholder="Usuário"><br>
+    <input type="password" id="password" placeholder="Senha"><br>
+    <button onclick="register()">Cadastrar</button>
+    <p>Já possui conta? <a href="index.html">Faça login</a></p>
+
+    <script>
+        function register() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            localStorage.setItem('user', JSON.stringify({ username, password }));
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+
+</html>

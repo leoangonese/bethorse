@@ -3,230 +3,49 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa de Apostas - Corrida de Cavalos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
+    <title>Login - Casa de Apostas</title>
     <style>
-        * {
-            list-style: none;
-            text-decoration: none;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Great Vibes', cursive;
-            text-align: center;
+            font-family: Arial, sans-serif;
             background-color: rgb(0, 26, 0);
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background-color: rgb(0, 122, 0);
-            ;
             color: white;
-            padding: 2px;
-            border-bottom: 1px solid brown;
-        }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-        }
-
-        ul li a {
-            margin: 0 20px;
-            color: #000000;
-            font-size: 28px;
-            font-weight: 400;
-        }
-
-        .race-track {
-            border-radius: 20px;
-            background-image:
-                url("./assets/img/fundo/second.jpeg");
-            background-size: contain;
-            background-position: center;
-            position: relative;
-            width: 95%;
-            height: 300px;
-            margin: 20px auto;
-            border: 2px solid #333;
-        }
-
-
-        .horse {
-            position: absolute;
-            bottom: 0;
-            width: 50px;
-            height: 100px;
-            border-radius: 50%;
-            transition: left 0.1s linear;
-        }
-
-        .controls {
-            margin-top: 20px;
-        }
-
-        footer {
-            margin-top: 50px;
-            font-size: 14px;
-            color: #777;
-            padding: 2px;
-        }
-
-        .btn-logout {
-            background-color: red;
-            border: solid 1px black;
-            border-radius: 10px;
-            padding: 5px 10px;
-        }
-
-        .btn-logout a {
-            color: white;
-            font-size: 20px;
-        }
-
-        .primary-text {
-            font-size: 36px;
-            color: white;
-            margin: 15px 0;
-        }
-
-        .wallet {
-            font-size: 28px;
-            color: white;
-        }
-
-        footer {
-            position: absolute;
-            bottom: 0;
-            width: 99.6%;
-            border-radius: 100px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            background-color: white;
-        }
-
-        footer p {
-            font-size: 28px;
-            color: black;
-        }
-
-        #startButton {
-            background-color: rgb(0, 122, 0);
-            border: solid 1px white;
-            border-radius: 10px;
-            padding: 10px 20px;
             text-align: center;
-            font-family: 'Great Vibes', cursive;
-            font-size: 32px;
+            margin-top: 100px;
+        }
+
+        input,
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
-    <audio id="audio" src="./assets/audio/run.mp3" type="audio/mpeg"></audio>
-
-    <header>
-        <img class="logo" src="./assets/img/logo.png" alt="">
-        <ul>
-            <li class="btn-logout"><a href="/logout">Sair</a></li>
-        </ul>
-    </header>
-
-    <h1 class="primary-text">Aposte com moderação</h1>
-    <p class="wallet">Saldo: R$ 1000,00</p>
-
-
-    <div class="race-track">
-        <div class="horse" id="horse1">
-            <img src="https://imgur.com/nQw1Osd" width="50px" height="50px" alt="Cavalo 1">
-        </div>
-        <div class="horse" id="horse2">
-            <img src="https://imgur.com/xp90e4c.png" width="50px" height="50px" alt="Cavalo 1">
-        </div>
-        <div class="horse" id="horse3">
-            <img src="https://imgur.com/m3e1xk7.png" width="50px" height="50px" alt="Cavalo 1">
-        </div>
-        <div class="horse" id="horse4">
-            <img src="https://imgur.com/D93hGMZ.png" width="50px" height="50px" alt="Cavalo 1">
-        </div>
-        <div class="horse" id="horse5">
-            <img src="https://imgur.com/KcrafX8.png" width="50px" height="50px" alt="Cavalo 1">
-        </div>
-    </div>
-
-    <div class="controls">
-        <button id="startButton">Iniciar Corrida</button>
-        <p id="winner"></p>
-    </div>
-
-    <footer>
-        <p>©Bethorse - Todos os direitos reservados 2025</p>
-    </footer>
+    <h1>Login</h1>
+    <input type="text" id="username" placeholder="Usuário"><br>
+    <input type="password" id="password" placeholder="Senha"><br>
+    <button onclick="login()">Entrar</button>
+    <p>Não possui conta? <a href="register.html">Cadastre-se</a></p>
 
     <script>
-        // Simulação de corrida de cavalos
-        let horsePositions = [0, 0, 0, 0, 0]; // 5 cavalos
-        let raceInterval;
-        let raceFinished = false;
-        let raceStarted = false;
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-        // Função que simula a corrida
-        function startRace() {
-            raceFinished = false;
-            document.getElementById('winner').textContent = ''; // Limpa o vencedor
+            const user = JSON.parse(localStorage.getItem('user'));
 
-            raceInterval = setInterval(() => {
-                if (raceFinished) return;
-                playSound();
-                setTimeout(() => {
-                    horsePositions = horsePositions.map(position => position + Math.random() * 2); // Move os cavalos aleatoriamente
-                    horsePositions.forEach((position, index) => {
-                        const horseElement = document.getElementById(`horse${index + 1}`);
-                        horseElement.style.left = `${position}%`; // Atualiza a posição do cavalo
-                    });
-                }, 1000)
-
-                // Verifica se algum cavalo atingiu a linha de chegada (100%)
-                if (horsePositions.some(position => position >= 93)) {
-                    raceFinished = true;
-                    const winnerIndex = horsePositions.findIndex(position => position >= 93);
-                    document.getElementById('winner').textContent = `O vencedor é o Cavalo ${winnerIndex + 1}!`;
-                    clearInterval(raceInterval);
-                    stopSound();
-                }
-            }, 100); // Atualiza a posição dos cavalos a cada 100ms
-        }
-
-        function playSound() {
-            var audio = document.getElementById("audio");
-            audio.play();
-
-        }
-
-        function stopSound() {
-            var audio = document.getElementById("audio");
-            audio.pause();
-            audio.currentTime = 0;
-        }
-
-        // Evento de botão de iniciar a corrida
-        document.getElementById('startButton').addEventListener('click', () => {
-            if (raceFinished) {
-                // Se a corrida já terminou, reinicia as posições dos cavalos e a corrida
-                horsePositions = [0, 0, 0, 0, 0];
-                document.getElementById('winner').textContent = '';
-                document.querySelectorAll('.horse').forEach(horse => horse.style.left = '0%');
+            if (user && user.username === username && user.password === password) {
+                alert('Login realizado com sucesso!');
+                localStorage.setItem('loggedIn', 'true');
+                window.location.href = 'bet.html';
+            } else {
+                alert('Usuário ou senha incorretos!');
             }
-            startRace(); // Inicia a corrida
-        });
+        }
     </script>
+</body>
+
+</html>
