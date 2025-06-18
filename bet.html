@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa de Apostas - Corrida de Cavalos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <style>
         /* (mantive todo seu CSS original, apenas adicionei o botão novo) */
         * {
@@ -17,7 +20,7 @@
         }
 
         body {
-            font-family: 'Great Vibes', cursive;
+            font-family: "IM Fell Great Primer SC", serif;
             text-align: center;
             background-color: rgb(0, 26, 0);
             margin: 0;
@@ -109,8 +112,8 @@
         }
 
         .btn-logout {
-            background-color: red;
-            border: solid 1px black;
+            background-color: transparent;
+            border: none;
             color: white;
             border-radius: 10px;
             padding: 5px 10px;
@@ -214,11 +217,11 @@
     <div class="bet-form">
         <label for="horseSelect">Escolha o cavalo:</label>
         <select id="horseSelect">
-            <option value="1">Cavalo 1</option>
-            <option value="2">Cavalo 2</option>
-            <option value="3">Cavalo 3</option>
-            <option value="4">Cavalo 4</option>
-            <option value="5">Cavalo 5</option>
+            <option value="1">Azul</option>
+            <option value="2">Verde</option>
+            <option value="3">Vermelho</option>
+            <option value="4">Amarelo</option>
+            <option value="5">Rosa</option>
         </select>
 
         <label for="betAmount">Valor da aposta (R$):</label>
@@ -279,7 +282,7 @@
                     raceStarted = false;
                     const winnerIndex = horsePositions.findIndex(position => position >= 93);
                     const winnerHorse = winnerIndex + 1;
-                    document.getElementById('winner').textContent = `O vencedor é o Cavalo ${winnerHorse}!`;
+                    document.getElementById('winner').textContent = `O vencedor é o Cavalo ${winnerHorse == 1 ? "Azul" : winnerHorse == 2 ? "Verde" : winnerHorse == 3 ? "Vermelho" : winnerHorse == 4 ? "Amarelo" : "Rosa"}!`;
                     clearInterval(raceInterval);
                     stopSound();
                     checkBetResult(winnerHorse);
